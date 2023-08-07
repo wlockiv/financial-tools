@@ -5,7 +5,6 @@
 	import { superForm } from 'sveltekit-superforms/client';
 
 	export let data;
-	export let form;
 
 	const {
 		form: loginForm,
