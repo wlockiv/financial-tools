@@ -14,6 +14,7 @@ declare global {
 		// interface PageData {}
 		interface Error {
 			message: string;
+			userHelp?: string;
 		}
 		// interface Platform {}
 

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Tooltip from '$lib/components/Tooltip.svelte';
 	import { nFormatter } from '$lib/components/util/currency';
 	import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +13,7 @@
 	}
 </script>
 
-<div class="grid grid-cols-[auto_1fr] gap-4 p-4">
+<div class="grid h-full grid-cols-[auto_1fr] gap-4 p-4">
 	<div class="w-96 space-y-4">
 		<div class="card w-full space-y-2 divide-y divide-surface-600">
 			<div class="card-header grid grid-cols-[1fr_auto]">
