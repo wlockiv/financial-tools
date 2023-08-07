@@ -1,9 +1,9 @@
 <script lang="ts">
-	// The ordering of these imports is critical to your app working properly
+	// Theme CSS must come first.
 	import '@skeletonlabs/skeleton/themes/theme-crimson.css';
-	// If you have source.organizeImports set to true in VSCode, then it will auto change this ordering
+	// Library CSS comes second.
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
-	// Most of your app wide CSS should be put in this file
+
 	import { modalComponentRegistry } from '$lib/modals/registry';
 	import { arrow, autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
 	import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
@@ -11,10 +11,10 @@
 		AppBar,
 		AppShell,
 		Modal,
+		modalStore,
 		popup,
 		storePopup,
-		type PopupSettings,
-		modalStore
+		type PopupSettings
 	} from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa/src/fa.svelte';
 	import '../app.postcss';

@@ -4,6 +4,7 @@
 	import { faPlus } from '@fortawesome/free-solid-svg-icons';
 	import { modalStore } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa/src/fa.svelte';
+	import Decimal from 'decimal.js';
 
 	export let data;
 
@@ -36,7 +37,9 @@
 							<li>
 								<a href="/app/mortgage/{m.id}" class="flex w-full active:variant-ghost-primary">
 									<span class="grow overflow-clip">{m.name}</span>
-									<span class="badge variant-soft-primary">${nFormatter(m.principle, 3)}</span>
+									<span class="badge variant-soft-primary">
+										${nFormatter(m.principle.toNumber(), 3)}
+									</span>
 								</a>
 							</li>
 						{/each}

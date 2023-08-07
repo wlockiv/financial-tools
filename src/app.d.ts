@@ -27,22 +27,12 @@ declare global {
 
 	// eslint-disable-next-line no-var
 	var __prisma: PrismaClient;
+
+	declare type Optional<T> = T | undefined | null;
 }
 
 declare module '@fortawesome/pro-solid-svg-icons/index.es' {
 	export * from '@fortawesome/pro-solid-svg-icons';
 }
-
-// declare global {
-// 	namespace Lucia {
-// 		type Auth = import('$lib/server/lucia').Auth;
-// 		type DatabaseUserAttributes = Omit<import('@prisma/client').User, 'id'>;
-// 		// type DatabaseSessionAttributes = import('@prisma/client').Session;
-// 		type DatabaseSessionAttributes = Record<string, never>;
-// 	}
-
-// 	// eslint-disable-next-line no-var
-// 	var __prisma: PrismaClient;
-// }
 
 export {};

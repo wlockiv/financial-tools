@@ -1,11 +1,11 @@
-import { Prisma } from '@prisma/client';
+import { Decimal } from 'decimal.js';
 import superjson from 'superjson';
 
-superjson.registerCustom<Prisma.Decimal, string>(
+superjson.registerCustom<Decimal, string>(
 	{
-		isApplicable: (v): v is Prisma.Decimal => Prisma.Decimal.isDecimal(v),
+		isApplicable: (v): v is Decimal => Decimal.isDecimal(v),
 		serialize: (v) => v.toJSON(),
-		deserialize: (v) => new Prisma.Decimal(v)
+		deserialize: (v) => new Decimal(v)
 	},
 	'prisma-decimal'
 );

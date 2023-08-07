@@ -12,7 +12,8 @@
 		formId,
 		errors,
 		submitting,
-		enhance
+		enhance,
+		message
 	} = superForm(data.form, { multipleSubmits: 'prevent' });
 </script>
 
@@ -37,9 +38,9 @@
 			/>
 		</form>
 
-		{#if form?.message}
+		{#if $message}
 			<div class="variant-ghost-error mt-4 rounded p-2">
-				<p>{form.message}</p>
+				<p>{$message}</p>
 			</div>
 		{/if}
 	</div>
