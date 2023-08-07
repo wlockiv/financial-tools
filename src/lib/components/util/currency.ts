@@ -2,7 +2,7 @@ export function toCurrency(value: number) {
 	return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 }
 
-export function nFormatter(num, digits) {
+export function nFormatter(num: number, digits: number) {
 	const lookup = [
 		{ value: 1, symbol: '' },
 		{ value: 1e3, symbol: 'k' },

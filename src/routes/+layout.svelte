@@ -4,15 +4,17 @@
 	// If you have source.organizeImports set to true in VSCode, then it will auto change this ordering
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	// Most of your app wide CSS should be put in this file
+	import { modalComponentRegistry } from '$lib/modals/registry';
 	import { arrow, autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
-	import { faEnvelope, faMailBulk, faUser } from '@fortawesome/free-solid-svg-icons';
+	import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 	import {
 		AppBar,
 		AppShell,
-		storePopup,
+		Modal,
 		popup,
+		storePopup,
 		type PopupSettings,
-		Modal
+		modalStore
 	} from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa/src/fa.svelte';
 	import '../app.postcss';
@@ -26,11 +28,13 @@
 		placement: 'bottom-end'
 	};
 
+	modalStore.clear();
+
 	export let data: PageData;
 </script>
 
 <!-- Modal Singleton -->
-<Modal />
+<Modal components={modalComponentRegistry} />
 
 <!-- App Shell -->
 <AppShell>
