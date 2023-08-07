@@ -4,7 +4,6 @@
 	import { faPlus } from '@fortawesome/free-solid-svg-icons';
 	import { modalStore } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa/src/fa.svelte';
-	import Decimal from 'decimal.js';
 
 	export let data;
 
@@ -48,7 +47,7 @@
 			</nav>
 		</div>
 	</div>
-	<div>
+	<div class="border-red-500 transition-colors">
 		<slot />
 	</div>
 </div>

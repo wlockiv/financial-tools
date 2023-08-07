@@ -6,7 +6,7 @@
 
 	import { modalComponentRegistry } from '$lib/modals/registry';
 	import { arrow, autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
-	import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
+	import { faBank, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 	import {
 		AppBar,
 		AppShell,
@@ -20,7 +20,14 @@
 	import '../app.postcss';
 	import type { PageData } from './$types';
 
-	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
+	storePopup.set({
+		computePosition,
+		autoUpdate,
+		offset,
+		shift,
+		flip,
+		arrow
+	});
 
 	const popupAccount: PopupSettings = {
 		event: 'click',
@@ -42,18 +49,11 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<strong class="text-xl uppercase">Skeleton</strong>
+				<strong class="text-xl uppercase">Financial Tools</strong>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				{#if data.session}
-					<a
-						class="btn btn-sm variant-ghost-surface"
-						href="/account"
-						target="_blank"
-						rel="noreferrer"
-					>
-						Account
-					</a>
+					<a class="btn btn-sm variant-ghost-surface" href="/"> Home </a>
 
 					<button class="btn-icon variant-ringed w-8" use:popup={popupAccount}>
 						<Fa icon={faUser} />
@@ -66,6 +66,17 @@
 							</div>
 							<span class="font-light">{data.session.user.email}</span>
 						</div>
+						<hr />
+						<nav class="list-nav px-2">
+							<ul>
+								<li>
+									<a href="/app/mortgage">
+										<span class="flex-auto">My Loans</span>
+										<Fa icon={faBank} />
+									</a>
+								</li>
+							</ul>
+						</nav>
 						<hr />
 						<div class="card-footer">
 							<form action="/auth/logout" method="post">
