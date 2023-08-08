@@ -24,9 +24,9 @@ export const load = async ({ locals }) => {
 		throw error(401, { message: 'Forbidden' });
 	}
 
-	const mortgages = await prisma.mortgage.findMany({ where: { user_id: session.user.userId } });
+	const loans = await prisma.loan.findMany({ where: { user_id: session.user.userId } });
 
-	return { form, mortgages: superjson.serialize(mortgages) };
+	return { form, loans: superjson.serialize(loans) };
 };
 
 export const actions = {
@@ -38,7 +38,7 @@ export const actions = {
 			return fail(401, { message: 'Forbidden ' });
 		}
 
-		const { id } = await prisma.mortgage.create({
+		const { id } = await prisma.loan.create({
 			data: {
 				name: form.data.name,
 				principle: form.data.principle,
@@ -53,6 +53,6 @@ export const actions = {
 			}
 		});
 
-		throw redirect(302, `/app/mortgage/${id}`);
+		throw redirect(302, `/app/loan/${id}`);
 	}
 };

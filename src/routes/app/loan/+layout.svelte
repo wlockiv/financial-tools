@@ -8,7 +8,7 @@
 	export let data;
 
 	function summonCreateForm() {
-		modalStore.trigger({ type: 'component', component: 'createLoan' });
+		modalStore.trigger({ type: 'component', component: 'createLoan', meta: { mode: 'create' } });
 	}
 </script>
 
@@ -28,16 +28,16 @@
 				</Tooltip>
 			</div>
 			<nav class="list-nav p-4">
-				{#if data.mortgages.length == 0}
+				{#if data.loans.length == 0}
 					<p>No loans yet!</p>
 				{:else}
 					<ul class="list-nav">
-						{#each data.mortgages as m}
+						{#each data.loans as l}
 							<li>
-								<a href="/app/mortgage/{m.id}" class="flex w-full active:variant-ghost-primary">
-									<span class="grow overflow-clip">{m.name}</span>
+								<a href="/app/loan/{l.id}" class="flex w-full active:variant-ghost-primary">
+									<span class="grow overflow-clip">{l.name}</span>
 									<span class="badge variant-soft-primary">
-										${nFormatter(m.principle.toNumber(), 3)}
+										${nFormatter(l.principle.toNumber(), 3)}
 									</span>
 								</a>
 							</li>

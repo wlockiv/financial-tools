@@ -1,35 +1,42 @@
-<script context="module">
-	import { subtractTzOffset } from '$lib/components/util/date';
+<script context="module" lang="ts">
+	import Decimal from 'decimal.js';
 	import { z } from 'zod';
+	import { schema as createLoanSchema } from './CreateLoanModal.svelte';
 
-	export const schema = z.object({
-		name: z.string().nonempty(),
-		principle: z.number().min(1).default(300_000),
-		interestRate: z.number().min(0.01).default(5.25),
-		term: z.number().min(1).default(30),
-		startDate: z.date().default(new Date()).transform(subtractTzOffset),
-		additionalFlat: z.number().default(0),
-		additionalMultiple: z.number().default(0)
-	});
+	const zNumberLike = z
+		.custom<Decimal>((data) => Decimal.isDecimal(data))
+		.transform((arg) => arg.toNumber())
+		.or(z.number());
+
+	export const schema = createLoanSchema.merge(
+		z.object({
+			id: z.string().uuid().nonempty(),
+			principle: zNumberLike,
+			interestRate: zNumberLike
+		})
+	);
 </script>
 
 <script lang="ts">
-	import { page } from '$app/stores';
 	import DateInput from '$lib/components/form/DateInput.svelte';
 	import LabeledInput from '$lib/components/form/LabeledInput.svelte';
 	import {
-		faDollarSign,
-		faPercent,
-		faClockFour,
 		faCalendar,
-		faMultiply
+		faClockFour,
+		faDollarSign,
+		faMultiply,
+		faPercent
 	} from '@fortawesome/free-solid-svg-icons';
 	import Fa from 'svelte-fa/src/fa.svelte';
 
-	import { superForm } from 'sveltekit-superforms/client';
 	import { modalStore } from '@skeletonlabs/skeleton';
+	import { superForm, superValidateSync } from 'sveltekit-superforms/client';
 
-	const { form, errors, formId, enhance } = superForm<typeof schema>($page.data.form, {
+	const meta = schema.parse($modalStore[0].meta);
+
+	const validated = superValidateSync(meta, schema);
+
+	const { form, errors, formId, enhance } = superForm<typeof schema>(validated, {
 		onResult: () => {
 			modalStore.close();
 		}
@@ -41,7 +48,14 @@
 		<h2 class="mb-4 text-3xl">Loan Information</h2>
 	</header>
 	<hr />
-	<form class="space-y-4 p-4" method="post" id={$formId} action="/app/loan?/create" use:enhance>
+	<form
+		class="space-y-4 p-4"
+		method="post"
+		id={$formId}
+		action={`/app/loan/${meta.id}?/edit`}
+		use:enhance
+	>
+		<input type="text" name="id" hidden value={$form.id} />
 		<LabeledInput
 			name="name"
 			label="Name"

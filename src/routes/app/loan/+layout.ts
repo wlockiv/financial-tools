@@ -1,9 +1,9 @@
 import superjson from '$lib/util/superjson.js';
-import type { Mortgage } from '@prisma/client';
+import type { Loan } from '@prisma/client';
 
 export const load = async ({ data }) => {
 	return {
 		form: data.form,
-		mortgages: superjson.deserialize(data.mortgages) as Mortgage[]
+		loans: superjson.deserialize(data.loans) as Loan[]
 	};
 };

@@ -24,7 +24,7 @@ export const load = async ({ locals }) => {
 		throw error(401, { message: 'Forbidden' });
 	}
 
-	const mortgages = await prisma.mortgage.findMany({ where: { user_id: session.user.userId } });
+	const loans = await prisma.loan.findMany({ where: { user_id: session.user.userId } });
 
-	return { form, mortgages: superjson.serialize(mortgages) };
+	return { form, loans: superjson.serialize(loans) };
 };

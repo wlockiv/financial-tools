@@ -39,7 +39,6 @@ export const actions = {
 			locals.auth.setSession(session);
 		} catch (e) {
 			if (e instanceof LuciaError) {
-				console.log('>>> LUCIA ERROR');
 				if (['AUTH_INVALID_PASSWORD', 'AUTH_INVALID_KEY_ID'].includes(e.message))
 					return setMessage(form, 'Incorrect username or password.', { status: 401 });
 

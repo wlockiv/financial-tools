@@ -9,12 +9,12 @@ generator client {
 }
 
 model User {
-    id           String     @id @unique
+    id           String    @id @unique
     name         String
-    email        String     @unique
+    email        String    @unique
     auth_session Session[]
     auth_key     Key[]
-    Mortgage     Mortgage[]
+    Loan         Loan[]
 }
 
 model Session {
@@ -36,8 +36,8 @@ model Key {
     @@index([user_id])
 }
 
-model Mortgage {
-    id           Int      @id @default(autoincrement())
+model Loan {
+    id           String   @id @default(uuid())
     createdAt    DateTime @default(now())
     updatedAt    DateTime @updatedAt
     name         String   @db.VarChar(255)

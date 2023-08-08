@@ -70,7 +70,7 @@
 						<nav class="list-nav px-2">
 							<ul>
 								<li>
-									<a href="/app/mortgage">
+									<a href="/app/loan">
 										<span class="flex-auto">My Loans</span>
 										<Fa icon={faBank} />
 									</a>

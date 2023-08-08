@@ -1,5 +1,6 @@
 import { env } from '$env/dynamic/private';
 import { PrismaClient } from '@prisma/client';
+import uuid from 'uuid';
 
 const prisma: PrismaClient = global.__prisma || new PrismaClient();
 
