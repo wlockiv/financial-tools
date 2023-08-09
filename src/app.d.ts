@@ -1,5 +1,6 @@
 import 'unplugin-icons/types/svelte';
 import '@skeletonlabs/skeleton';
+import type { SvelteComponent } from 'svelte';
 
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
@@ -30,6 +31,7 @@ declare global {
 	var __prisma: PrismaClient;
 
 	declare type Optional<T> = T | undefined | null;
+	declare type AnyRenderable = string | number | SvelteComponent;
 }
 
 declare module '@fortawesome/pro-solid-svg-icons/index.es' {

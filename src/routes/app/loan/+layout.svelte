@@ -1,21 +1,20 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import Tooltip from '$lib/components/Tooltip.svelte';
 	import { nFormatter, toCurrency } from '$lib/components/util/currency';
-	import {
-		calculateAverageAPR,
-		calculateInterest,
-		calculateTotalInterest,
-		makePaymentSchedule
-	} from '$lib/components/util/loans.js';
-	import { faBank, faPlus } from '@fortawesome/free-solid-svg-icons';
+	import { calculateAverageAPR, calculateTotalInterest } from '$lib/components/util/loans.js';
+	import { faPlus } from '@fortawesome/free-solid-svg-icons';
+	import type { Loan } from '@prisma/client';
 	import { modalStore } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa/src/fa.svelte';
 
 	export let data;
 
-	const totalPrinciple = data.loans.reduce((p, c) => p + c.principle.toNumber(), 0);
-	const avgAPR = calculateAverageAPR(data.loans);
-	const totalInterest = data.loans.reduce((p, c) => p + calculateTotalInterest(c), 0);
+	$: totalPrinciple = data.loans.reduce((p: number, c: Loan) => p + c.principle.toNumber(), 0);
+
+	$: avgAPR = calculateAverageAPR(data.loans);
+
+	$: totalInterest = data.loans.reduce((p: number, c: Loan) => p + calculateTotalInterest(c), 0);
 
 	function summonCreateForm() {
 		modalStore.trigger({ type: 'component', component: 'createLoan', meta: { mode: 'create' } });
@@ -43,8 +42,9 @@
 				{:else}
 					<ul class="list-nav">
 						{#each data.loans as l}
+							{@const href = `/app/loan/${l.id}`}
 							<li>
-								<a href="/app/loan/{l.id}" class="flex w-full active:variant-ghost-primary">
+								<a {href} class="flex w-full" class:active={href === $page.url.pathname}>
 									<span class="grow overflow-clip">{l.name}</span>
 									<span class="badge variant-soft-primary">
 										${nFormatter(l.principle.toNumber(), 3)}
@@ -64,17 +64,17 @@
 			<div class="p-4">
 				<ul class="list space-y-2">
 					<li>
-						<div class="flex-auto">Total Principle</div>
+						<div class="flex-auto font-semibold">Total Principle</div>
 						<span class="badge variant-soft-primary">
 							{toCurrency(totalPrinciple)}
 						</span>
 					</li>
 					<li>
-						<div class="flex-auto">Total Interest</div>
+						<div class="flex-auto font-semibold">Total Interest</div>
 						<span class="badge variant-soft-primary">{toCurrency(totalInterest)}</span>
 					</li>
 					<li>
-						<div class="flex-auto">Avg Interest Rate</div>
+						<div class="flex-auto font-semibold">Avg Interest Rate</div>
 						<span class="badge variant-soft-primary">{avgAPR.toFixed(2)}%</span>
 					</li>
 				</ul>
@@ -85,3 +85,9 @@
 		<slot />
 	</div>
 </div>
+
+<style lang="postcss">
+	.list-nav a.active {
+		@apply variant-ghost-primary;
+	}
+</style>

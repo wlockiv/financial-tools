@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import MetricCard from '$lib/components/MetricCard.svelte';
-	import type { TableKeys } from '$lib/components/Table.svelte';
+	import type { TableDef } from '$lib/components/Table.svelte';
 	import Table from '$lib/components/Table.svelte';
 	import { toCurrency } from '$lib/components/util/currency';
+	import { toMonthString } from '$lib/components/util/date.js';
 	import type { LoanPayment } from '$lib/components/util/loans.js';
 	import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-	import { modalStore, tableMapperValues } from '@skeletonlabs/skeleton';
+	import { modalStore } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa/src/fa.svelte';
 
 	export let data;
@@ -15,14 +15,13 @@
 		data.payments.reduce((prev: number, cur: LoanPayment) => prev + cur._interestAmt, 0) ?? 0;
 	$: totalPaid = totalInterest + data.loan.principle.toNumber();
 
-	const tableHead = ['Payment #', 'Month', 'Principle', 'Interest', 'Payment', 'Remaining'];
-	const tableKeys: TableKeys<typeof data.payments> = [
-		'paymentNo',
-		'date',
-		'principleAmt',
-		'interestAmt',
-		'paymentAmt',
-		'remainingAmt'
+	const tableDef: TableDef<LoanPayment> = [
+		{ headerName: 'Payment #', render: (item) => item.paymentNo },
+		{ headerName: 'Date', render: (item) => toMonthString(item._date) },
+		{ headerName: 'Principle Amt', render: (item) => toCurrency(item._principleAmt) },
+		{ headerName: 'Interest Amt', render: (item) => toCurrency(item._interestAmt) },
+		{ headerName: 'Payment Amt', render: (item) => toCurrency(item._paymentAmt) },
+		{ headerName: 'Remaining', render: (item) => toCurrency(item._remainingAmt) }
 	];
 
 	function summonEditModal() {
@@ -54,4 +53,4 @@
 	<MetricCard label="Total Cost" metric={toCurrency(totalPaid)} />
 	<MetricCard label="Payoff Date" metric={data.payments.at(-1)?.date ?? '-'} />
 </div>
-<Table headerData={tableHead} bodyData={tableMapperValues(data.payments, tableKeys)} />
+<Table defs={tableDef} data={data.payments} />
