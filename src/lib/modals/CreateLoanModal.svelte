@@ -24,7 +24,7 @@
 		faCalendar,
 		faMultiply
 	} from '@fortawesome/free-solid-svg-icons';
-	import Fa from 'svelte-fa/src/fa.svelte';
+	import Fa from 'svelte-fa';
 
 	import { superForm } from 'sveltekit-superforms/client';
 	import { modalStore } from '@skeletonlabs/skeleton';

@@ -27,7 +27,7 @@
 		faMultiply,
 		faPercent
 	} from '@fortawesome/free-solid-svg-icons';
-	import Fa from 'svelte-fa/src/fa.svelte';
+	import Fa from 'svelte-fa';
 
 	import { modalStore } from '@skeletonlabs/skeleton';
 	import { superForm, superValidateSync } from 'sveltekit-superforms/client';

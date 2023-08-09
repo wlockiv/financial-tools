@@ -6,7 +6,7 @@
 	import { faPlus } from '@fortawesome/free-solid-svg-icons';
 	import type { Loan } from '@prisma/client';
 	import { modalStore } from '@skeletonlabs/skeleton';
-	import Fa from 'svelte-fa/src/fa.svelte';
+	import Fa from 'svelte-fa';
 
 	export let data;
 

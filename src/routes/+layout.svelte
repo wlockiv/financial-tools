@@ -16,7 +16,7 @@
 		storePopup,
 		type PopupSettings
 	} from '@skeletonlabs/skeleton';
-	import Fa from 'svelte-fa/src/fa.svelte';
+	import Fa from 'svelte-fa';
 	import '../app.postcss';
 	import type { PageData } from './$types';
 

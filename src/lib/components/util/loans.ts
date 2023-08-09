@@ -51,7 +51,7 @@ export function calculateTotalInterest(loan: Loan) {
 	let res = 0;
 
 	for (const l of makePaymentSchedule(loan)) {
-		res += l._interestAmt;
+		res += l.interestAmt;
 	}
 
 	return res;
@@ -102,11 +102,11 @@ export function* makePaymentSchedule(loan: Loan): Generator<LoanPayment> {
 
 export class LoanPayment {
 	paymentNo: number;
-	_date: Date;
-	_interestAmt: number;
-	_principleAmt: number;
-	_paymentAmt: number;
-	_remainingAmt: number;
+	date: Date;
+	interestAmt: number;
+	principleAmt: number;
+	paymentAmt: number;
+	remainingAmt: number;
 
 	constructor(
 		paymentNo: number,
@@ -117,30 +117,10 @@ export class LoanPayment {
 		remainingAmt: number
 	) {
 		this.paymentNo = paymentNo;
-		this._date = date;
-		this._interestAmt = interestAmt;
-		this._principleAmt = principleAmt;
-		this._paymentAmt = paymentAmt;
-		this._remainingAmt = remainingAmt;
-	}
-
-	public get date(): string {
-		return toMonthString(this._date);
-	}
-
-	public get interestAmt(): string {
-		return toCurrency(this._interestAmt);
-	}
-
-	public get principleAmt(): string {
-		return toCurrency(this._principleAmt);
-	}
-
-	public get paymentAmt(): string {
-		return toCurrency(this._paymentAmt);
-	}
-
-	public get remainingAmt(): string {
-		return toCurrency(this._remainingAmt);
+		this.date = date;
+		this.interestAmt = interestAmt;
+		this.principleAmt = principleAmt;
+		this.paymentAmt = paymentAmt;
+		this.remainingAmt = remainingAmt;
 	}
 }

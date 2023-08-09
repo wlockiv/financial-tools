@@ -1,7 +1,7 @@
 <script lang="ts">
 	import LabeledInput from '$lib/components/form/LabeledInput.svelte';
 	import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-	import Fa from 'svelte-fa/src/fa.svelte';
+	import Fa from 'svelte-fa';
 	import { superForm } from 'sveltekit-superforms/client';
 
 	export let data;
