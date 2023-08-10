@@ -342,10 +342,10 @@
   resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-5.1.1.tgz#9c26d209f93a563e048eab63b1976f222f1707d0"
   integrity sha512-NV/4nVNWFZSJCCIA3HIFJbbDKO/NARc9ej0tX5S9k2EVbkrFJC4Xt9b0u4rNZWL4V+F5LAjvta8vzEUw0rw+HA==
 
-"@skeletonlabs/skeleton@^1.9.0":
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/@skeletonlabs/skeleton/-/skeleton-1.10.0.tgz#a1c16f7c51dcb3b7e8e03e526807a3dbe013668a"
-  integrity sha512-6Cy1dzF6b2tMGxjFe60WOulN53tfvWMH+SDYoPMzNsRoa20vjlBMjLInWPJGn4dMuSJMiDrR9apniv16m0c9Rg==
+"@skeletonlabs/skeleton@^1.11.0":
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@skeletonlabs/skeleton/-/skeleton-1.11.0.tgz#52ad6bfd466261e5f92d9f7913e5a4b39f7daeb3"
+  integrity sha512-VdLdYT0Gm4zsVPjLM2cXjyBWJbo8Cxswf8RBsD5cjAP8E098D237WDgDQmV1JC6WYUY2OiEOLN4PV6S3LoF2dg==
   dependencies:
     esm-env "1.0.0"
 

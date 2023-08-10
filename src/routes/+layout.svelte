@@ -1,8 +1,5 @@
 <script lang="ts">
-	// Theme CSS must come first.
-	import '@skeletonlabs/skeleton/themes/theme-crimson.css';
-	// Library CSS comes second.
-	import '@skeletonlabs/skeleton/styles/skeleton.css';
+	import '../app.postcss';
 
 	import { modalComponentRegistry } from '$lib/modals/registry';
 	import { arrow, autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
@@ -17,7 +14,6 @@
 		type PopupSettings
 	} from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa';
-	import '../app.postcss';
 	import type { PageData } from './$types';
 
 	storePopup.set({

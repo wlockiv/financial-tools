@@ -44,7 +44,10 @@
 						{#each data.loans as l}
 							{@const href = `/app/loan/${l.id}`}
 							<li>
-								<a {href} class="flex w-full" class:active={href === $page.url.pathname}>
+								<a
+									{href}
+									class="flex w-full {href === $page.url.pathname ? 'variant-ghost-primary' : ''}"
+								>
 									<span class="grow overflow-clip">{l.name}</span>
 									<span class="badge variant-soft-primary">
 										${nFormatter(l.principle.toNumber(), 3)}
@@ -85,9 +88,3 @@
 		<slot />
 	</div>
 </div>
-
-<style lang="postcss">
-	.list-nav a.active {
-		@apply variant-ghost-primary;
-	}
-</style>
