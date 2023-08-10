@@ -16,3 +16,7 @@
 	</svelte:fragment>
 	<SubmitButton slot="footer">Log In</SubmitButton>
 </AuthFormWrapper>
+<div class="mx-auto max-w-sm space-x-2 text-center">
+	<a class="anchor" href="/auth/signup">Sign Up</a>
+	<a class="anchor" href="/auth/reset">Reset Password</a>
+</div>

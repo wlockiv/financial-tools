@@ -1,6 +1,7 @@
 <script lang="ts">
 	import '../app.postcss';
 
+	import ColorModeToggler from '$lib/components/ColorModeToggler.svelte';
 	import { modalComponentRegistry } from '$lib/modals/registry';
 	import { arrow, autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
 	import { faBank, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
@@ -10,6 +11,7 @@
 		Modal,
 		modalStore,
 		popup,
+		setInitialClassState,
 		storePopup,
 		type PopupSettings
 	} from '@skeletonlabs/skeleton';
@@ -35,6 +37,13 @@
 
 	export let data: PageData;
 </script>
+
+<!-- Lightswitch -->
+<svelte:head>{@html `<script>(${setInitialClassState.toString()})();</script>`}</svelte:head>
+
+<span class="absolute bottom-4 right-4">
+	<ColorModeToggler />
+</span>
 
 <!-- Modal Singleton -->
 <Modal components={modalComponentRegistry} />
@@ -83,8 +92,8 @@
 						</div>
 					</div>
 				{:else}
-					<a class="btn btn-sm variant-ghost-surface" href="/auth/login"> Log In </a>
-					<a class="btn btn-sm variant-ghost-surface" href="/auth/signup"> Sign Up </a>
+					<a class="btn btn-sm variant-ghost-primary" href="/auth/signup"> Sign Up </a>
+					<a class="btn btn-sm variant-filled-primary" href="/auth/login"> Log In </a>
 				{/if}
 			</svelte:fragment>
 		</AppBar>

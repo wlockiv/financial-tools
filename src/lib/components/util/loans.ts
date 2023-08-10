@@ -1,7 +1,6 @@
 import type { Loan } from '@prisma/client';
 import { addMonths } from 'date-fns';
-import { toCurrency } from './currency';
-import { toMonthString } from './date';
+import { subtractTzOffset } from './date';
 
 export function calculateAverageAPR(loans: Loan[]): number {
 	if (loans.length === 0) {
@@ -61,7 +60,8 @@ export function* makePaymentSchedule(loan: Loan): Generator<LoanPayment> {
 	const additional = 0;
 	const principleMultiplier = 0;
 
-	const { term, startDate } = loan;
+	const term = loan.term;
+	const startDate = subtractTzOffset(loan.startDate);
 	const interestRate = loan.interestRate.toNumber();
 	const principle = loan.principle.toNumber();
 
@@ -80,47 +80,30 @@ export function* makePaymentSchedule(loan: Loan): Generator<LoanPayment> {
 		const date = addMonths(startDate, paymentNo - 1);
 
 		if (remainingAmt < paymentAmt + additional) {
-			yield new LoanPayment(
+			yield {
 				paymentNo,
 				date,
 				interestAmt,
 				principleAmt,
-				interestAmt + remainingAmt,
-				0
-			);
-
+				paymentAmt: interestAmt + remainingAmt,
+				remainingAmt: 0
+			};
 			break;
 		}
 
 		remainingAmt -= principleAmt;
 
-		yield new LoanPayment(paymentNo, date, interestAmt, principleAmt, paymentAmt, remainingAmt);
+		yield { paymentNo, date, interestAmt, principleAmt, paymentAmt, remainingAmt };
 
 		paymentNo += 1;
 	}
 }
 
-export class LoanPayment {
+export type LoanPayment = {
 	paymentNo: number;
 	date: Date;
 	interestAmt: number;
 	principleAmt: number;
 	paymentAmt: number;
 	remainingAmt: number;
-
-	constructor(
-		paymentNo: number,
-		date: Date,
-		interestAmt: number,
-		principleAmt: number,
-		paymentAmt: number,
-		remainingAmt: number
-	) {
-		this.paymentNo = paymentNo;
-		this.date = date;
-		this.interestAmt = interestAmt;
-		this.principleAmt = principleAmt;
-		this.paymentAmt = paymentAmt;
-		this.remainingAmt = remainingAmt;
-	}
-}
+};
