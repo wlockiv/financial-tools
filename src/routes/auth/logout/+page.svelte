@@ -3,7 +3,7 @@
 	import Fa from 'svelte-fa';
 </script>
 
-<div class="grid h-screen place-items-center">
+<div class="grid h-full place-items-center">
 	<div>
 		<div class="flex animate-pulse items-center justify-center">
 			<Fa icon={faSpinner} spin size="1.5em" />

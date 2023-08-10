@@ -2,12 +2,7 @@ import { auth } from '$lib/server/lucia.js';
 import { fail, redirect } from '@sveltejs/kit';
 import { LuciaError } from 'lucia';
 import { setMessage, superValidate } from 'sveltekit-superforms/server';
-import { z } from 'zod';
-
-const loginSchema = z.object({
-	email: z.string().email(),
-	password: z.string().nonempty('Required')
-});
+import { formSchema } from './_LoginForm.svelte';
 
 export const load = async ({ locals }) => {
 	const session = await locals.auth.validate();
@@ -16,13 +11,14 @@ export const load = async ({ locals }) => {
 		throw redirect(302, '/');
 	}
 
-	const form = await superValidate(loginSchema);
+	const form = await superValidate(formSchema);
+
 	return { form };
 };
 
 export const actions = {
 	default: async ({ request, locals }) => {
-		const form = await superValidate(request, loginSchema);
+		const form = await superValidate(request, formSchema);
 
 		if (!form.valid) {
 			return fail(400, { form });
